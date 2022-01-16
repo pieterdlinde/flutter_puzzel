@@ -21,8 +21,12 @@ class Tile extends StatelessWidget {
                   ? Colors.white
                   : Colors.lightBlue,
               child: Center(
-                  child:
-                      Text(tileController.getTile(index).value.displayName))),
+                  child: Text(tileController.getTile(index).value.displayName +
+                      tileController
+                          .getTile(index)
+                          .value
+                          .isFlipped
+                          .toString()))),
         ));
   }
 }

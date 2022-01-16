@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mypuzzle/components/tile.component.dart';
+import 'package:mypuzzle/controllers/tile.controller.dart';
 
 class PuzzelPage extends StatelessWidget {
 
@@ -10,16 +11,23 @@ class PuzzelPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      child: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: 500,maxWidth: 500),
-          child: GridView.count(
-            crossAxisCount: gridSize,
-            children: List.generate(gridSize * gridSize, (index) {
-              return Tile(index: index,);
-            }),
+      child: Column(
+        children: [
+          ElevatedButton(onPressed: (){
+            TileController.to.shuffleTiles();
+          }, child: Text("Shuffle")),
+          Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: 500,maxWidth: 500),
+              child: GridView.count(
+                crossAxisCount: gridSize,
+                children: List.generate(gridSize * gridSize, (index) {
+                  return Tile(index: index,);
+                }),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     ));
   }
