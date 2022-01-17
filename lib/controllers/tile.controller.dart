@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:get/get.dart';
 import 'package:mypuzzle/constants/app_values.dart';
 import 'package:mypuzzle/models/tile.dart';
@@ -44,8 +46,7 @@ class TileController extends GetxController {
           displayName: i.toString(),
           position: i,
           isEmptyTile: false,
-          isFlipped: true
-          );
+          isFlipped: true);
       if (i == gridSize) {
         tile.displayName = "";
         tile.isEmptyTile = true;
@@ -66,11 +67,12 @@ class TileController extends GetxController {
     var emptyTile = getEmptyTile();
 
     // Check left and right
-    if (emptyTile.value.id + 1 == tile.value.id || emptyTile.value.id - 1 == tile.value.id) {
+    if (emptyTile.value.id + 1 == tile.value.id ||
+        emptyTile.value.id - 1 == tile.value.id) {
       // if(emptyTile.value.id % AppValues.GRID_SIZE == 0){
 
       // }else{
-        return true;
+      return true;
       // }
     }
     // Check top and bottom
@@ -102,22 +104,37 @@ class TileController extends GetxController {
     }
   }
 
-  void shuffleTiles() {
-    var changeTilesNumber = 5;
+  Future<void> shuffleTiles() async {
+    var rng = new Random();
+    var changeTilesNumber = rng.nextInt(3) + 5;
 
     for (var i = 0; i < changeTilesNumber; i++) {
       for (var _tile in tiles.value) {
         if (canTileMove(_tile.id)) {
           moveTile(_tile.id);
+          await Future.delayed(const Duration(milliseconds: 150), () {});
           break;
         }
       }
     }
 
+    changeTilesNumber = rng.nextInt(5) + 5;
     for (var i = changeTilesNumber; i > 0; i--) {
       for (var _tile in tiles.reversed) {
         if (canTileMove(_tile.id)) {
           moveTile(_tile.id);
+          await Future.delayed(const Duration(milliseconds: 150), () {});
+          break;
+        }
+      }
+    }
+
+    changeTilesNumber = rng.nextInt(6);
+    for (var i = 0; i < changeTilesNumber; i++) {
+      for (var _tile in tiles.value) {
+        if (canTileMove(_tile.id)) {
+          moveTile(_tile.id);
+          await Future.delayed(const Duration(milliseconds: 150), () {});
           break;
         }
       }
