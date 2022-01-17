@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mypuzzle/constants/app_values.dart';
 import 'package:mypuzzle/controllers/tile.controller.dart';
 
 class Tile extends StatelessWidget {
   final int index;
+
   const Tile({Key? key, required this.index}) : super(key: key);
 
   @override
@@ -11,22 +13,37 @@ class Tile extends StatelessWidget {
     var tileController = TileController.to;
 
     return GestureDetector(
-        onTap: () {
-          tileController.moveTile(index);
-          tileController.updatedMoves();
-        },
-        child: Obx(
-          () => Container(
+      onTap: () {
+        tileController.moveTile(index);
+        tileController.updatedMoves();
+      },
+      child: Obx(() => AnimatedContainer(
+            duration: const Duration(milliseconds: AppValues.TILE_CHANGE_SPEED),
+            decoration: BoxDecoration(
               color: tileController.getTile(index).value.isEmptyTile
                   ? Colors.white
                   : Colors.lightBlue,
-              child: Center(
-                  child: Text(tileController.getTile(index).value.displayName +
-                      tileController
-                          .getTile(index)
-                          .value
-                          .isFlipped
-                          .toString()))),
-        ));
+              borderRadius: BorderRadius.circular(0),
+            ),
+            child: Center(child: TextOrImage(index)),
+          )),
+    );
+  }
+
+  Widget TextOrImage(int index) {
+    var tileController = TileController.to;
+    var tile = tileController.getTile(index).value;
+    if (tile.isFlipped && !tile.isEmptyTile) {
+      // return Text("Image");
+      return Container(
+        child: Image(
+          height: 1000,
+          width: 1000,
+          fit: BoxFit.fitWidth,
+          image: AssetImage('assets/medium/' + tile.displayName.toString() + ".jpg"),
+        ),
+      );
+    }
+    return Text(tile.displayName);
   }
 }

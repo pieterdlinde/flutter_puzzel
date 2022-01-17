@@ -38,10 +38,15 @@ class TileController extends GetxController {
 
     var gridSize = AppValues.GRID_SIZE * AppValues.GRID_SIZE;
 
-    for (int i = 0; i < gridSize; i++) {
+    for (int i = 1; i <= gridSize; i++) {
       var tile = Tile(
-          id: i, displayName: i.toString(), position: i, isEmptyTile: false, isFlipped: false);
-      if (i == gridSize - 1) {
+          id: i,
+          displayName: i.toString(),
+          position: i,
+          isEmptyTile: false,
+          isFlipped: true
+          );
+      if (i == gridSize) {
         tile.displayName = "";
         tile.isEmptyTile = true;
       }
@@ -61,9 +66,12 @@ class TileController extends GetxController {
     var emptyTile = getEmptyTile();
 
     // Check left and right
-    if (emptyTile.value.id + 1 == tile.value.id ||
-        emptyTile.value.id - 1 == tile.value.id) {
-      return true;
+    if (emptyTile.value.id + 1 == tile.value.id || emptyTile.value.id - 1 == tile.value.id) {
+      // if(emptyTile.value.id % AppValues.GRID_SIZE == 0){
+
+      // }else{
+        return true;
+      // }
     }
     // Check top and bottom
     if (emptyTile.value.id + AppValues.GRID_SIZE == tile.value.id ||
@@ -74,17 +82,21 @@ class TileController extends GetxController {
     return false;
   }
 
-  void moveTile(int index) {
+  Future<void> moveTile(int index) async {
     if (canTileMove(index)) {
       var tile = getTile(index);
       var emptyTile = getEmptyTile();
+      var displayName = tile.value.displayName;
 
       tile.value.isEmptyTile = true;
-      emptyTile.value.isEmptyTile = false;
-
-      emptyTile.value.displayName = tile.value.displayName;
-      emptyTile.value.isFlipped = !emptyTile.value.isFlipped;
       tile.value.displayName = "";
+
+      // tiles.refresh();
+      // await Future.delayed(const Duration(milliseconds: AppValues.TILE_CHANGE_SPEED), (){});
+
+      emptyTile.value.isEmptyTile = false;
+      emptyTile.value.displayName = displayName;
+      emptyTile.value.isFlipped = !tile.value.isFlipped;
 
       tiles.refresh();
     }
@@ -110,6 +122,5 @@ class TileController extends GetxController {
         }
       }
     }
-
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mypuzzle/components/tile.component.dart';
+import 'package:mypuzzle/constants/app_values.dart';
 import 'package:mypuzzle/controllers/tile.controller.dart';
 
 class PuzzelPage extends StatelessWidget {
@@ -18,11 +19,11 @@ class PuzzelPage extends StatelessWidget {
           }, child: Text("Shuffle")),
           Center(
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 500,maxWidth: 500),
+              constraints: BoxConstraints(maxHeight: AppValues.GRID_SIZE_HEIGHT_WIDTH,maxWidth: AppValues.GRID_SIZE_HEIGHT_WIDTH),
               child: GridView.count(
                 crossAxisCount: gridSize,
                 children: List.generate(gridSize * gridSize, (index) {
-                  return Tile(index: index,);
+                  return Tile(index: index + 1,);
                 }),
               ),
             ),
