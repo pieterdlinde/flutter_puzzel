@@ -169,7 +169,7 @@ class TileController extends GetxController {
     gridSize.value = AppValues.GRID_SIZE;
     generateTiles();
     gridSize.refresh();
-    await Future.delayed(const Duration(milliseconds: 550), () {});
+    await Future.delayed(const Duration(milliseconds: 1550), () {});
     await shuffleTiles();
     await shuffleTiles();
   }
@@ -180,7 +180,7 @@ class TileController extends GetxController {
     gridSize.value = AppValues.GRID_SIZE;
     generateTiles();
     gridSize.refresh();
-    await Future.delayed(const Duration(milliseconds: 550), () {});
+    await Future.delayed(const Duration(milliseconds: 1550), () {});
     await shuffleTiles();
     await shuffleTiles();
   }
@@ -191,7 +191,7 @@ class TileController extends GetxController {
     gridSize.value = AppValues.GRID_SIZE;
     generateTiles();
     gridSize.refresh();
-    await Future.delayed(const Duration(milliseconds: 550), () {});
+    await Future.delayed(const Duration(milliseconds: 1550), () {});
     await shuffleTiles();
     await shuffleTiles();
   }
