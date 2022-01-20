@@ -100,9 +100,6 @@ class TileController extends GetxController {
       tile.value.isEmptyTile = true;
       tile.value.displayName = "";
 
-      // tiles.refresh();
-      // await Future.delayed(const Duration(milliseconds: AppValues.TILE_CHANGE_SPEED), (){});
-
       emptyTile.value.isEmptyTile = false;
       emptyTile.value.displayName = displayName;
       emptyTile.value.isFlipped = !tile.value.isFlipped;
