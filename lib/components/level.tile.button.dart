@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mypuzzle/helpers/shado-box.dart';
 
 class LevelTileButton extends StatelessWidget {
   final String buttonText;
@@ -9,37 +10,38 @@ class LevelTileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-              onTap: onPress,
-              child: Container(
-                margin: EdgeInsets.only(bottom: 10.0, left: 15.0),
-                width: 120,
-                height: 50,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: colors,
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+    return Shadoview(
+      child: GestureDetector(
+                onTap: onPress,
+                child: Container(
+                  width: 80,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: colors,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey, 
+                        blurRadius: 10,
+                      )
+                    ],
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey, 
-                      blurRadius: 10,
-                    )
-                  ],
-                ),
-                child: Center(
-                  child: Text(
-                    buttonText,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+                  child: Center(
+                    child: Text(
+                      buttonText,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
-            );
+    );
   }
 }

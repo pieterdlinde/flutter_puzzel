@@ -12,9 +12,18 @@ class LevelTiles extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            LevelTileButton(buttonText: "easy", colors: [Colors.lightBlue,Colors.lightBlue.shade200],onPress: (){ TileController.to.easy();},),
-            LevelTileButton(buttonText: "medium", colors: [Colors.purple,Colors.purple.shade200],onPress: (){ TileController.to.medium();},),
-            LevelTileButton(buttonText: "hard", colors: [Colors.deepOrange,Colors.deepOrange.shade200],onPress: (){ TileController.to.hard();},),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LevelTileButton(buttonText: "easy", colors: [Colors.lightBlue,Colors.lightBlue.shade200],onPress: (){ TileController.to.easy();},),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LevelTileButton(buttonText: "medium", colors: [Colors.purple,Colors.purple.shade200],onPress: (){ TileController.to.medium();},),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LevelTileButton(buttonText: "hard", colors: [Colors.deepOrange,Colors.deepOrange.shade200],onPress: (){ TileController.to.hard();},),
+            ),
           ],
         );
   }
