@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mypuzzle/constants/app_values.dart';
 import 'package:mypuzzle/controllers/tile.controller.dart';
+import 'package:mypuzzle/helpers/shado-box.dart';
 
 class Tile extends StatelessWidget {
   final int index;
@@ -20,9 +21,6 @@ class Tile extends StatelessWidget {
       child: Obx(() => AnimatedContainer(
             duration: const Duration(milliseconds: AppValues.TILE_CHANGE_SPEED),
             decoration: BoxDecoration(
-              color: tileController.getTile(index).value.isEmptyTile
-                  ? Colors.white
-                  : Colors.lightBlue,
               borderRadius: BorderRadius.circular(0),
             ),
             child: Center(child: TextOrImage(index)),
@@ -35,7 +33,7 @@ class Tile extends StatelessWidget {
     var tile = tileController.getTile(index).value;
     if (tile.isFlipped && !tile.isEmptyTile) {
       // return Text("Image");
-      return Container(
+      return Shadoview(
         child: Image(
           height: 1000,
           width: 1000,
@@ -45,6 +43,27 @@ class Tile extends StatelessWidget {
         ),
       );
     }
-    return Text(tile.displayName);
+    return Shadoview(
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: tileController.getTile(index).value.isEmptyTile
+                ? LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                        Colors.grey.shade300, 
+                        Colors.white, 
+                      ])
+                : LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                        Colors.lightBlueAccent,
+                        Colors.lightBlueAccent,
+                        Colors.lightBlue
+                      ])),
+        child: Center(child: Text(tile.displayName, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),)),
+      ),
+    );
   }
 }
