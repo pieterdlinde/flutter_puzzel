@@ -147,7 +147,7 @@ class TileController extends GetxController {
 
   String getImage(String imageName) {
     var imageNr = int.parse(imageName);
-    if (level.value == Level.easy) {      
+    if (level.value == Level.easy) {
       return ('assets/easy/0' + imageName.toString() + ".jpg");
     }
     if (level.value == Level.medium) {
@@ -164,29 +164,25 @@ class TileController extends GetxController {
     level.value = Level.easy;
     AppValues.GRID_SIZE = 3;
     gridSize.value = AppValues.GRID_SIZE;
-    generateTiles();
-    gridSize.refresh();
-    await Future.delayed(const Duration(milliseconds: 1550), () {});
-    await shuffleTiles();
-    await shuffleTiles();
+    refreshLevel();
   }
 
   Future<void> medium() async {
     level.value = Level.medium;
     AppValues.GRID_SIZE = 4;
     gridSize.value = AppValues.GRID_SIZE;
-    generateTiles();
-    gridSize.refresh();
-    await Future.delayed(const Duration(milliseconds: 1550), () {});
-    await shuffleTiles();
-    await shuffleTiles();
+    refreshLevel();
   }
 
   Future<void> hard() async {
     level.value = Level.hard;
     AppValues.GRID_SIZE = 5;
     gridSize.value = AppValues.GRID_SIZE;
-    generateTiles();
+    refreshLevel();
+  }
+
+  Future<void> refreshLevel() async {
+     generateTiles();
     gridSize.refresh();
     await Future.delayed(const Duration(milliseconds: 1550), () {});
     await shuffleTiles();

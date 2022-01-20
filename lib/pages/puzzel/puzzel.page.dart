@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mypuzzle/components/level.tiles.dart';
 import 'package:mypuzzle/components/tile.component.dart';
 import 'package:mypuzzle/constants/app_values.dart';
 import 'package:mypuzzle/controllers/tile.controller.dart';
@@ -11,39 +12,27 @@ class PuzzelPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+            Colors.grey.shade400,
+            Colors.grey.shade300,
+            Colors.grey.shade200,
+          ])),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    TileController.to.easy();
-                  },
-                  child: Text("Easy")),
-              ElevatedButton(
-                  onPressed: () {
-                    TileController.to.medium();
-                  },
-                  child: Text("Medium")),
-              ElevatedButton(
-                  onPressed: () {
-                    TileController.to.hard();
-                  },
-                  child: Text("Hard")),
-            ],
-          ),
+          LevelTiles(),
           Center(
             child: Obx(() => ConstrainedBox(
                   constraints: BoxConstraints(
                       maxHeight: AppValues.GRID_SIZE_HEIGHT_WIDTH,
-                      maxWidth: AppValues.GRID_SIZE_HEIGHT_WIDTH),
+                      maxWidth: AppValues.GRID_SIZE_HEIGHT_WIDTH), 
                   child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                    decoration: BoxDecoration( 
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
