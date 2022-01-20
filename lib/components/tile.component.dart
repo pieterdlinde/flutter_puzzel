@@ -40,7 +40,7 @@ class Tile extends StatelessWidget {
           height: 1000,
           width: 1000,
           fit: BoxFit.fitWidth,
-          image: AssetImage('assets/medium/' + tile.displayName.toString() + ".jpg"),
+          image: AssetImage(TileController.to.getImage(tile.displayName.toString())),
         ),
       );
     }

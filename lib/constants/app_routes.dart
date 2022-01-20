@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:mypuzzle/constants/app_values.dart';
 import 'package:mypuzzle/pages/landing/landing.page.dart';
 import 'package:mypuzzle/pages/puzzel/puzzel.page.dart';
 
@@ -13,6 +12,6 @@ class AppRoutes {
 
   static final routes = [
     GetPage(name: '/', page: () => LandingPage()),
-    GetPage(name: '/' + AppRoutePaths.puzzel.toString(), page: () => PuzzelPage(gridSize: AppValues.GRID_SIZE,)),
+    GetPage(name: '/' + AppRoutePaths.puzzel.toString(), page: () => PuzzelPage()),
   ];
 }

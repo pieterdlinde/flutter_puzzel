@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:mypuzzle/constants/app_values.dart';
+import 'package:mypuzzle/models/level.dart';
 import 'package:mypuzzle/models/tile.dart';
 
 class TileController extends GetxController {
@@ -9,6 +10,12 @@ class TileController extends GetxController {
 
   final tilesMoved = 0.obs;
   int get currentTilesMoved => tilesMoved.value;
+
+  final gridSize = AppValues.GRID_SIZE.obs;
+  int get currentGridSize => gridSize.value;
+
+  final level = Level.easy.obs;
+  Level get currentlevel => level.value;
 
   RxList<Tile> tiles = RxList<Tile>();
 
@@ -106,7 +113,7 @@ class TileController extends GetxController {
 
   Future<void> shuffleTiles() async {
     var rng = new Random();
-    var changeTilesNumber = rng.nextInt(3) + 5;
+    var changeTilesNumber = rng.nextInt(AppValues.GRID_SIZE) + 3;
 
     for (var i = 0; i < changeTilesNumber; i++) {
       for (var _tile in tiles.value) {
@@ -118,7 +125,7 @@ class TileController extends GetxController {
       }
     }
 
-    changeTilesNumber = rng.nextInt(5) + 5;
+    changeTilesNumber = rng.nextInt(AppValues.GRID_SIZE) + 4;
     for (var i = changeTilesNumber; i > 0; i--) {
       for (var _tile in tiles.reversed) {
         if (canTileMove(_tile.id)) {
@@ -129,7 +136,7 @@ class TileController extends GetxController {
       }
     }
 
-    changeTilesNumber = rng.nextInt(6);
+    changeTilesNumber = rng.nextInt(AppValues.GRID_SIZE);
     for (var i = 0; i < changeTilesNumber; i++) {
       for (var _tile in tiles.value) {
         if (canTileMove(_tile.id)) {
@@ -139,5 +146,53 @@ class TileController extends GetxController {
         }
       }
     }
+  }
+
+  String getImage(String imageName) {
+    var imageNr = int.parse(imageName);
+    if (level.value == Level.easy) {      
+      return ('assets/easy/0' + imageName.toString() + ".jpg");
+    }
+    if (level.value == Level.medium) {
+      return ('assets/medium/0' + imageName + ".png");
+    }
+    if (level.value == Level.hard) {
+      return ('assets/hard/0' + imageName + ".png");
+    }
+
+    return imageName;
+  }
+
+  Future<void> easy() async {
+    level.value = Level.easy;
+    AppValues.GRID_SIZE = 3;
+    gridSize.value = AppValues.GRID_SIZE;
+    generateTiles();
+    gridSize.refresh();
+    await Future.delayed(const Duration(milliseconds: 550), () {});
+    await shuffleTiles();
+    await shuffleTiles();
+  }
+
+  Future<void> medium() async {
+    level.value = Level.medium;
+    AppValues.GRID_SIZE = 4;
+    gridSize.value = AppValues.GRID_SIZE;
+    generateTiles();
+    gridSize.refresh();
+    await Future.delayed(const Duration(milliseconds: 550), () {});
+    await shuffleTiles();
+    await shuffleTiles();
+  }
+
+  Future<void> hard() async {
+    level.value = Level.hard;
+    AppValues.GRID_SIZE = 5;
+    gridSize.value = AppValues.GRID_SIZE;
+    generateTiles();
+    gridSize.refresh();
+    await Future.delayed(const Duration(milliseconds: 550), () {});
+    await shuffleTiles();
+    await shuffleTiles();
   }
 }
