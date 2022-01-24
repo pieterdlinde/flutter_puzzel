@@ -101,8 +101,8 @@ class TileController extends GetxController {
       var emptyTile = getEmptyTile();
 
       tileGridController.moveTile(
-          emptyTile.value.position, 10);
-      tileGridController.moveTile(tile.value.position, 10);
+          emptyTile.value.position, 15500);
+      tileGridController.moveTile(tile.value.position, 15500);
 
       var displayName = tile.value.displayName;
 

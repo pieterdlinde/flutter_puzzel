@@ -66,25 +66,25 @@ class TileGridController extends GetxController {
     if (rng.nextBool()) {
       for (var tile in _tiles) {
         tile.isFlipped = !tile.isFlipped;
-        await Future.delayed(Duration(milliseconds: speed), () {});
+        await Future.delayed(Duration(microseconds: speed), () {});
         tiles.refresh();
       }
     } else if (rng.nextBool()) {
       for (var tile in _tiles.reversed) {
         tile.isFlipped = !tile.isFlipped;
-        await Future.delayed(Duration(milliseconds: speed), () {});
+        await Future.delayed(Duration(microseconds: speed), () {});
         tiles.refresh();
       }
     } else if (rng.nextBool()) {
       for (var tile in _tiles.reversed) {
         tile.isFlipped = !tile.isFlipped;
-        await Future.delayed(Duration(milliseconds: speed), () {});
+        await Future.delayed(Duration(microseconds: speed), () {});
         tiles.refresh();
       }
     } else {
       for (var tile in _tiles.reversed) {
         tile.isFlipped = !tile.isFlipped;
-        await Future.delayed(Duration(milliseconds: speed), () {});
+        await Future.delayed(Duration(microseconds: speed), () {});
         tiles.refresh();
       }
     }
