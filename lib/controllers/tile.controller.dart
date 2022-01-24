@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:mypuzzle/constants/app_values.dart';
+import 'package:mypuzzle/controllers/tile.grid.controller.dart';
+import 'package:mypuzzle/models/animations.enum.dart';
 import 'package:mypuzzle/models/level.dart';
 import 'package:mypuzzle/models/tile.dart';
 
@@ -14,7 +16,7 @@ class TileController extends GetxController {
   final gridSize = AppValues.GRID_SIZE.obs;
   int get currentGridSize => gridSize.value;
 
-  final level = Level.easy.obs;
+  final level = Level.medium.obs;
   Level get currentlevel => level.value;
 
   RxList<Tile> tiles = RxList<Tile>();
@@ -93,8 +95,15 @@ class TileController extends GetxController {
 
   Future<void> moveTile(int index) async {
     if (canTileMove(index)) {
+      final tileGridController = TileGridController.to;
+
       var tile = getTile(index);
       var emptyTile = getEmptyTile();
+
+      tileGridController.moveTile(
+          emptyTile.value.position, 10);
+      tileGridController.moveTile(tile.value.position, 10);
+
       var displayName = tile.value.displayName;
 
       tile.value.isEmptyTile = true;
@@ -182,7 +191,10 @@ class TileController extends GetxController {
   }
 
   Future<void> refreshLevel() async {
-     generateTiles();
+    final tileGridController = TileGridController.to;
+    tileGridController.refreshLevel();
+
+    generateTiles();
     gridSize.refresh();
     await Future.delayed(const Duration(milliseconds: 1550), () {});
     await shuffleTiles();

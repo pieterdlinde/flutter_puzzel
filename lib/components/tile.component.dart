@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mypuzzle/constants/app_values.dart';
 import 'package:mypuzzle/controllers/tile.controller.dart';
+import 'package:mypuzzle/controllers/tile.grid.controller.dart';
 import 'package:mypuzzle/helpers/shado-box.dart';
+import 'package:mypuzzle/models/tile.dart' as tileModel;
+
+import 'tile.grid.dart';
 
 class Tile extends StatelessWidget {
   final int index;
@@ -12,6 +16,7 @@ class Tile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tileController = TileController.to;
+    var tileGridController = TileGridController.to;
 
     return GestureDetector(
       onTap: () {
@@ -23,7 +28,15 @@ class Tile extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(0),
             ),
-            child: Center(child: TextOrImage(index)),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Center(child: TextOrImage(index)),
+                TileGrid(
+                  mainBlock: index,
+                )
+              ],
+            ),
           )),
     );
   }
@@ -35,14 +48,36 @@ class Tile extends StatelessWidget {
       // return Text("Image");
       return Shadoview(
         child: Image(
-          height: 1000,
-          width: 1000,
+          height: 500,
+          width: 500,
           fit: BoxFit.fitWidth,
           image: AssetImage(
               TileController.to.getImage(tile.displayName.toString())),
         ),
       );
     }
+    return EmptyTileView(
+      tileController: tileController,
+      index: index,
+      displayName: tile.displayName,
+    );
+  }
+}
+
+class EmptyTileView extends StatelessWidget {
+  const EmptyTileView({
+    Key? key,
+    required this.tileController,
+    required this.index,
+    required this.displayName,
+  }) : super(key: key);
+
+  final TileController tileController;
+  final int index;
+  final String displayName;
+
+  @override
+  Widget build(BuildContext context) {
     return Shadoview(
       child: Container(
         decoration: BoxDecoration(
@@ -51,10 +86,9 @@ class Tile extends StatelessWidget {
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                     colors: [
-                        Colors.grey.shade300, 
-                        Colors.white, 
+                        Colors.grey.shade50,
                       ])
-                : LinearGradient(
+                : const LinearGradient(
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
                     colors: [
@@ -62,7 +96,11 @@ class Tile extends StatelessWidget {
                         Colors.lightBlueAccent,
                         Colors.lightBlue
                       ])),
-        child: Center(child: Text(tile.displayName, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),)),
+        child: Center(
+            child: Text(
+          displayName,
+          style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }

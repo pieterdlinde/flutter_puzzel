@@ -22,7 +22,7 @@ class LevelTileButton extends StatelessWidget {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(0),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey, 

@@ -11,10 +11,10 @@ class Shadoview extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10)),
+            topLeft: Radius.circular(0),
+            topRight: Radius.circular(0),
+            bottomLeft: Radius.circular(0),
+            bottomRight: Radius.circular(0)),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
